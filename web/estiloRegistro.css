@@ -1,0 +1,17 @@
+.tituloF{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    color: black;
+    font-weight: bold;
+}
+.lab{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+}
+body{
+    background-image: url(fondoR.jpg);
+    background-size: cover;
+}
+

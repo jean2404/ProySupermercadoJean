@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <!-- Spring de Acceso -->
+    <bean id="ejc" class="persistencia.EmpleadoJpaController" >
+    </bean> <!-- Tambien lo uso para Spring de Empleado -->
+    <bean id="ad" class="persistencia.AccesoDaoImp" >
+        <property name="ejc" ref="ejc" />
+    </bean>
+    <bean id="as" class="servicio.AccesoServicioImp" >
+        <property name="ad" ref="ad" />
+    </bean>
+    <bean id="/AccesoControl" class="vista.AccesoControl" >
+        <property name="as" ref="as" />
+    </bean>
+    
+    <!-- Spring de Mantenimiento Proveedor -->
+    <bean id="pjc" class="persistencia.ProveedorJpaController" />
+    <bean id="pd" class="persistencia.ProveedorDaoImp" >
+        <property name="pjc" ref="pjc" />
+    </bean>
+    <bean id="ps" class="servicio.ProveedorServicioImp" >
+        <property name="pd" ref="pd" />
+    </bean>
+    <bean id="/ProveedorControl" class="vista.ProveedorControl" >
+        <property name="ps" ref="ps" />
+    </bean>
+    
+    <!-- Spring de Mantenimiento Cliente -->
+    <bean id="cjc" class="persistencia.ClienteJpaController" />
+    <bean id="cd" class="persistencia.ClienteDaoImp" >
+        <property name="cjc" ref="cjc" />
+    </bean>
+    <bean id="cs" class="servicio.ClienteServicioImp" >
+        <property name="cd" ref="cd" />
+    </bean>
+    <bean id="/ClienteControl" class="vista.ClienteControl" >
+        <property name="cs" ref="cs" />
+    </bean>
+    
+    <!-- Spring de Mantenimiento Articulo -->
+    <bean id="ajc" class="persistencia.ArticuloJpaController" />
+    <bean id="artd" class="persistencia.ArticuloDaoImp" >
+        <property name="ajc" ref="ajc" />
+    </bean>
+    <bean id="arts" class="servicio.ArticuloServicioImp" >
+        <property name="artd" ref="artd" />
+    </bean>
+    <bean id="/ArticuloControl" class="vista.ArticuloControl" >
+        <property name="arts" ref="arts" />
+    </bean>
+    
+    <!-- Spring de Mantenimiento de Empleado -->
+    <bean id="ed" class="persistencia.EmpleadoDaoImp" >
+        <property name="ejc" ref="ejc" />
+    </bean>
+    <bean id="es" class="servicio.EmpleadoServicioImp" >
+        <property name="ed" ref="ed" />
+    </bean>
+    <bean id="/EmpleadoControl" class="vista.EmpleadoControl" >
+        <property name="es" ref="es" />
+    </bean>
+    
+    <!-- Spring de Venta -->
+    <!-- el objeto ajc ya esta creado mas arriba -->
+    <bean id="vendao" class="persistencia.VentaDaoImp" >
+        <property name="ajc" ref="ajc" />
+        <property name="cjc1" ref="cjc1" />
+        <property name="vjc" ref="vjc" />
+        <property name="djc" ref="djc" />
+    </bean>
+    <bean id="venser" class="servicio.VentaServicioImp" >
+        <property name="vendao" ref="vendao" />
+    </bean>
+    <bean id="/VentaControl" class="vista.VentaControl" >
+        <property name="venser" ref="venser" />
+    </bean>
+    <bean id="cjc1" class="persistencia.ClienteJpaController1" /><!-- cliente de Venta -->
+    <bean id="vjc" class="persistencia.VentaJpaController " /><!-- cliente de Venta -->
+    <bean id="djc" class="persistencia.DetalleventaJpaController" />
+    
+    <!-- Spring de Compra -->
+    <!-- el objeto ajc del articuloJpaController ya esta creado mas arriba -->
+    <bean id="pjc1" class="persistencia.ProveedorJpaController1" />
+    <bean id="comjc" class="persistencia.CompraJpaController" />
+    <bean id="dcjc" class="persistencia.DetallecompraJpaController" />
+    <bean id="comdao" class="persistencia.CompraDaoImp" >
+        <property name="ajc" ref="ajc" />
+        <property name="pjc1" ref="pjc1" />
+        <property name="comjc" ref="comjc" />
+        <property name="dcjc" ref="dcjc" />
+    </bean><!-- Objeto de CompraDao -->
+    <bean id="comser" class="servicio.CompraServicioImp" >
+        <property name="comdao" ref="comdao" />
+    </bean>
+    <bean id="/CompraControl" class="vista.CompraControl" >
+        <property name="comser" ref="comser" />
+    </bean>
+        
+</beans>
